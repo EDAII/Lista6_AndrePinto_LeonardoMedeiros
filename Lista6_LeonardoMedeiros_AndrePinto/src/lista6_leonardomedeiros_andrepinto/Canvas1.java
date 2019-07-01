@@ -111,7 +111,7 @@ public class Canvas1 extends Canvas {
             if(j4) c4++;
             
             if(!j2 && !j3 && !j4) break;
-            //sleep(1);
+            sleep(50);
             paint(getGraphics());
 
         }
