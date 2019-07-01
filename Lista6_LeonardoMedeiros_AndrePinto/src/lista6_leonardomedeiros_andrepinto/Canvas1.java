@@ -29,7 +29,15 @@ public class Canvas1 extends Canvas {
     public int [][] mapa;
     public int mapcounter=0;
     
+    public int gametype=0;
     public int alg=0;
+    
+    public int player1=0;
+    public boolean player1p=false;
+    public int p1posx=0;
+    public int p1posy=0;
+    
+    public int player2=0;
     
     
     
@@ -65,7 +73,20 @@ public class Canvas1 extends Canvas {
         
     }  
     public void setAlg(int a){
-        alg = a;
+        if(gametype==0){
+            alg = a;
+        }else{
+            if(!player1p){
+                player1=a;
+            }else{
+                player2=a;                
+            }
+        }
+        
+    }
+    
+    public void setGameMode(int type){
+        gametype = type;
     }
     
     public void jogo(int x, int y) throws InterruptedException{
@@ -156,6 +177,94 @@ public class Canvas1 extends Canvas {
         }else{
             JOptionPane.showMessageDialog(null, "YOU LOSE");
             System.exit (0);
+        }
+        
+    }
+    
+    public void jogo(int x, int y, int game) throws InterruptedException{
+        if(!player1p){
+            player1p=true;
+            p1posx=x;
+            p1posy=y;
+            return;
+        }else if(x==p1posx && y==p1posy){
+            JOptionPane.showMessageDialog(null, "Both players can't play the same position");
+            return;
+        }
+        JogadorDFS jogador1d = new JogadorDFS(p1posx, p1posy, 2);
+        JogadorBFS jogador1b = new JogadorBFS(p1posx, p1posy, 2);
+        
+        JogadorDFS jogador2d = new JogadorDFS(x, y, 3);
+        JogadorBFS jogador2b = new JogadorBFS(x, y, 3);
+        
+        
+        int c1=0, c2=0;
+        while(true){
+            boolean j1;
+            boolean j2;
+            if(player1==0){
+                j1 = jogador1d.proximaJogada(mapa);
+            }else{
+                j1 = jogador1b.proximaJogada(mapa);
+            }
+            
+            if(player2==0){
+                j2 = jogador2d.proximaJogada(mapa);
+            }else{
+                j2 = jogador2b.proximaJogada(mapa);
+            }
+            
+            if(j1) c1++;
+            if(j2) c2++;
+            
+            
+            
+            if(!j1 && !j2) break;
+            sleep(30);
+            paint(getGraphics());
+
+        }
+        int counter1=0, counter2=0;
+        if(c1 > c2){
+            JOptionPane.showMessageDialog(null, "Player 1 wins the round");
+        }else{
+            JOptionPane.showMessageDialog(null, "Player 2 wins the round");
+        }
+            
+        switch (mapcounter) {
+            case 0:
+                setMap1();
+                paint(getGraphics());
+                mapcounter++;
+                break;
+            case 1:
+                setMap3();
+                paint(getGraphics());
+                mapcounter++;
+                break;
+            case 2:
+                setMap2();
+                paint(getGraphics());
+                mapcounter++;
+                break;
+            case 3:
+                setMap4();
+                paint(getGraphics());
+                mapcounter++;
+                break;
+            case 4:
+                setMap5();
+                paint(getGraphics());
+                mapcounter++;
+                break;
+            default:
+                if(counter1 > counter2){
+                    JOptionPane.showMessageDialog(null, "PLAYER 1 WINS THE GAME");
+                }else{
+                    JOptionPane.showMessageDialog(null, "PLAYER 2 WINS THE GAME");
+                }
+                
+                System.exit (0);
         }
         
     }

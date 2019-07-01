@@ -24,9 +24,6 @@ public class JogadorDFS {
         pilhax.push(x);
         pilhay.push(y);
         myColor=color;
-        //System.out.print(x);
-        //System.out.print(" ");
-        //System.out.println(y);
     }
     
     public boolean proximaJogada(int [][] mapa){
@@ -53,9 +50,9 @@ public class JogadorDFS {
             return 2;
         }
         mapa[nx][ny] = myColor;
-        System.out.print(nx);
-        System.out.print(" ");
-        System.out.println(ny);
+        //System.out.print(nx);
+        //System.out.print(" ");
+        //System.out.println(ny);
         for(int i=0; i<4; i++){
             if(nx+dx[i]<0 || nx+dx[i]>=50 || ny+dy[i]<0 || ny+dy[i] >= 50){
                 continue;

@@ -23,13 +23,14 @@ public class Fase1 extends javax.swing.JFrame {
     public Canvas1 canvas = new Canvas1();
     public BotoesLaterais botoes = new BotoesLaterais();
     public static int alg = 0;
+    public int gametype = 0; // 0 to campaign, 1 to versus
     //public ThreadJogo thread = new ThreadJogo();
     /**
      * Creates new form Fase1
      */
-    public Fase1() {
+    public Fase1(int type) {
        
-        
+        gametype=type;
         initComponents();
         
         //canvas.constroiMapa();
@@ -39,7 +40,7 @@ public class Fase1 extends javax.swing.JFrame {
         getContentPane().add(canvas, BorderLayout.WEST);
         getContentPane().add(botoes, BorderLayout.EAST);
         
-        
+        //canvas.setGameMode(gametype);
         //BotoesLaterais menu = new BotoesLaterais(recursoJogador);
         //getContentPane().add(menu);
         
@@ -58,7 +59,12 @@ public class Fase1 extends javax.swing.JFrame {
                 if(x_pos<50 && y_pos<50){
                     if(canvas.mapa[y_pos][x_pos]==0){
                         try {
-                            canvas.jogo(y_pos, x_pos);
+                            if(gametype!=0){
+                                canvas.jogo(y_pos, x_pos, 1);
+                            }else{
+                                canvas.jogo(y_pos, x_pos);
+                            }
+                            
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Fase1.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -242,7 +248,7 @@ public class Fase1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Fase1().setVisible(true);
+                new Fase1(0).setVisible(true);
             }
         });
     }
