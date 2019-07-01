@@ -24,9 +24,9 @@ public class JogadorDFS {
         pilhax.push(x);
         pilhay.push(y);
         myColor=color;
-        System.out.print(x);
-        System.out.print(" ");
-        System.out.println(y);
+        //System.out.print(x);
+        //System.out.print(" ");
+        //System.out.println(y);
     }
     
     public boolean proximaJogada(int [][] mapa){
